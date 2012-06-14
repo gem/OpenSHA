@@ -10,6 +10,13 @@ import org.junit.Test;
 import org.opensha.commons.param.event.ParameterChangeWarningEvent;
 import org.opensha.commons.param.event.ParameterChangeWarningListener;
 import org.opensha.sha.imr.attenRelImpl.AB_2003_AttenRel;
+import org.opensha.sha.imr.param.EqkRuptureParams.FocalDepthParam;
+import org.opensha.sha.imr.param.EqkRuptureParams.MagParam;
+import org.opensha.sha.imr.param.IntensityMeasureParams.PeriodParam;
+import org.opensha.sha.imr.param.IntensityMeasureParams.SA_Param;
+import org.opensha.sha.imr.param.OtherParams.TectonicRegionTypeParam;
+import org.opensha.sha.imr.param.PropagationEffectParams.DistanceRupParameter;
+import org.opensha.sha.imr.param.SiteParams.Vs30_Param;
 import org.opensha.sha.util.TectonicRegionType;
 
 /**
@@ -388,6 +395,28 @@ public class AB_2003_test implements ParameterChangeWarningListener {
 
 		validateAgainstTable(tectonicRegionType, hypocentralDepth, periodIndex,
 				magnitude, vs30, expectedResultIndex, pgaInterfaceTable);
+	}
+	
+	/**
+	 * Check SA at T = 4 s
+	 */
+	@Test
+	public final void sa4s(){
+		ab2003AttenRel.setIntensityMeasure(SA_Param.NAME);
+		ab2003AttenRel.getParameter(MagParam.NAME).setValue(6.0);
+		ab2003AttenRel.getParameter(DistanceRupParameter.NAME).setValue(10.0);
+		ab2003AttenRel.getParameter(Vs30_Param.NAME).setValue(800.0);
+		ab2003AttenRel.getParameter(TectonicRegionTypeParam.NAME).
+			setValue(TectonicRegionType.SUBDUCTION_INTERFACE.toString());
+		ab2003AttenRel.getParameter(FocalDepthParam.NAME).setValue(20.0);
+		
+		ab2003AttenRel.getParameter(PeriodParam.NAME).setValue(3.0);
+		double mean3s = ab2003AttenRel.getMean();
+		
+		ab2003AttenRel.getParameter(PeriodParam.NAME).setValue(4.0);
+		double mean4s = ab2003AttenRel.getMean();
+		
+		assertTrue(mean4s  == mean3s / 0.550);
 	}
 
 	/**

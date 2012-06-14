@@ -497,6 +497,11 @@ public class AkB_2010_AttenRel extends AttenuationRelationship implements
 			logY = Math.log(Math.exp(logY)
 					* AkB2010Constants.CMS2_TO_G_CONVERSION_FACTOR);
 		}
+		
+		// apply correction for T = 4
+		if (AkB2010Constants.PERIOD[iper] == 4.00){
+			logY /= AkB2010Constants.T3sec_TO_T4sec_DECAYFACTOR;
+		}
 
 		return logY;
 	}
