@@ -551,8 +551,15 @@ public class AB_2003_AttenRel extends AttenuationRelationship implements
 		double logY = rockResponse + soilResponse;
 		logY *= AB2003Constants.LOG10_2_LN;
 
-		return Math.log(Math.exp(logY)
+		double mean = Math.log(Math.exp(logY)
 				* AB2003Constants.CMS_TO_G_CONVERSION_FACTOR);
+		
+		// apply correction for T = 4 s
+		if(AB2003Constants.PERIOD[iper] == 4.0){
+			mean /= AB2003Constants.T3sec_TO_T4sec_DECAYFACTOR;
+		}
+		
+		return mean;
 	}
 
 	private double capHypocentralDepth(double hypoDep) {

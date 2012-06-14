@@ -75,4 +75,9 @@ public class YoungsEtAl1997Constants {
 	 * cm/s/s to g conversion factor.
 	 */
 	public static final double CMS_TO_G_CONVERSION_FACTOR = 1.0/981.0;
+	
+    /**
+	* Decay factor to extend the spectral periods to 4sec (for rock)
+	*/
+	public static final double T3sec_TO_T4sec_DECAYFACTOR = 0.399;
 }

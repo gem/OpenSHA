@@ -11,6 +11,13 @@ import org.opensha.commons.data.function.ArbitrarilyDiscretizedFunc;
 import org.opensha.commons.param.event.ParameterChangeWarningEvent;
 import org.opensha.commons.param.event.ParameterChangeWarningListener;
 import org.opensha.sha.imr.attenRelImpl.YoungsEtAl_1997_AttenRel;
+import org.opensha.sha.imr.param.EqkRuptureParams.FocalDepthParam;
+import org.opensha.sha.imr.param.EqkRuptureParams.MagParam;
+import org.opensha.sha.imr.param.IntensityMeasureParams.PeriodParam;
+import org.opensha.sha.imr.param.IntensityMeasureParams.SA_Param;
+import org.opensha.sha.imr.param.OtherParams.TectonicRegionTypeParam;
+import org.opensha.sha.imr.param.PropagationEffectParams.DistanceRupParameter;
+import org.opensha.sha.imr.param.SiteParams.Vs30_Param;
 import org.opensha.sha.util.TectonicRegionType;
 
 /**
@@ -392,6 +399,28 @@ public class YoungsEtAl_1997_test implements ParameterChangeWarningListener {
 				hypoDep, iper,
 				mag, siteTypeParam,
 				expectedResultIndex, saIntraSlabTable);
+	}
+	
+	/**
+	 * Check SA at T = 4 s
+	 */
+	@Test
+	public final void sa4s(){
+		youngsEtAl1997AttenRel.setIntensityMeasure(SA_Param.NAME);
+		youngsEtAl1997AttenRel.getParameter(MagParam.NAME).setValue(6.0);
+		youngsEtAl1997AttenRel.getParameter(DistanceRupParameter.NAME).setValue(10.0);
+		youngsEtAl1997AttenRel.getParameter(Vs30_Param.NAME).setValue(800.0);
+		youngsEtAl1997AttenRel.getParameter(TectonicRegionTypeParam.NAME).
+			setValue(TectonicRegionType.SUBDUCTION_INTERFACE.toString());
+		youngsEtAl1997AttenRel.getParameter(FocalDepthParam.NAME).setValue(20.0);
+		
+		youngsEtAl1997AttenRel.getParameter(PeriodParam.NAME).setValue(3.0);
+		double mean3s = youngsEtAl1997AttenRel.getMean();
+		
+		youngsEtAl1997AttenRel.getParameter(PeriodParam.NAME).setValue(4.0);
+		double mean4s = youngsEtAl1997AttenRel.getMean();
+		
+		assertTrue(mean4s  == mean3s / 0.399);
 	}
 	
 	private void validateAgainstTable(final String tectonicRegionType,

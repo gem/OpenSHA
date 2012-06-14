@@ -359,6 +359,15 @@ public class ToroEtAl_2002_AttenRel extends AttenuationRelationship implements
 		double f4 = ToroEtAl2002Constants.c6[iper] * rM;
 
 		double lnY = f1 - f2 - f3 - f4;
+		
+		// correction for 3 s
+		if  (ToroEtAl2002Constants.PERIOD[iper] == 3.00) {
+			lnY /= ToroEtAl2002Constants.T2sec_TO_T3sec_DECAYFACTOR;
+		}
+		// correction for 4 s
+		if  (ToroEtAl2002Constants.PERIOD[iper] == 4.00) {
+			lnY /= ToroEtAl2002Constants.T2sec_TO_T4sec_DECAYFACTOR;
+		}
 
 		return lnY;
 

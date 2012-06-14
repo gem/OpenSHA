@@ -535,6 +535,10 @@ public class YoungsEtAl_1997_AttenRel extends AttenuationRelationship implements
 							* Math.exp(YoungsEtAl1997Constants.A5_ROCK * mag))
 					+ YoungsEtAl1997Constants.A6_ROCK * hypoDep
 					+ YoungsEtAl1997Constants.A7_ROCK * Zt;
+			// correct for T = 4 s
+			if (YoungsEtAl1997Constants.PERIOD_ROCK[iper]==4.00){
+				lnY /= YoungsEtAl1997Constants.T3sec_TO_T4sec_DECAYFACTOR;
+			}
 		} else {
 			// soil
 			lnY = YoungsEtAl1997Constants.A1_SOIL

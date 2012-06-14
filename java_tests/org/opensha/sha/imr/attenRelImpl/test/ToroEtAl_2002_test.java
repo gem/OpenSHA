@@ -1,6 +1,7 @@
 package org.opensha.sha.imr.attenRelImpl.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -10,7 +11,11 @@ import org.junit.Test;
 import org.opensha.commons.param.event.ParameterChangeWarningEvent;
 import org.opensha.commons.param.event.ParameterChangeWarningListener;
 import org.opensha.sha.imr.attenRelImpl.ToroEtAl_2002_AttenRel;
+import org.opensha.sha.imr.param.EqkRuptureParams.MagParam;
+import org.opensha.sha.imr.param.IntensityMeasureParams.PeriodParam;
+import org.opensha.sha.imr.param.IntensityMeasureParams.SA_Param;
 import org.opensha.sha.imr.param.OtherParams.StdDevTypeParam;
+import org.opensha.sha.imr.param.PropagationEffectParams.DistanceJBParameter;
 
 /**
  * Class providing methods for testing {@link ToroEtAl_2002_AttenRel}. Tables
@@ -94,6 +99,28 @@ public class ToroEtAl_2002_test implements ParameterChangeWarningListener {
 	@Test
 	public void checkStdTotal() {
 		validateStdDev(StdDevTypeParam.STD_DEV_TYPE_TOTAL, stdTotalTable);
+	}
+	
+	/**
+	 * Check SA at T = 3 and 4 s
+	 */
+	@Test
+	public final void sa3_4s(){
+		toro2002AtenRel.setIntensityMeasure(SA_Param.NAME);
+		toro2002AtenRel.getParameter(MagParam.NAME).setValue(6.0);
+		toro2002AtenRel.getParameter(DistanceJBParameter.NAME).setValue(10.0);
+		
+		toro2002AtenRel.getParameter(PeriodParam.NAME).setValue(2.0);
+		double mean2s = toro2002AtenRel.getMean();
+		
+		toro2002AtenRel.getParameter(PeriodParam.NAME).setValue(3.0);
+		double mean3s = toro2002AtenRel.getMean();
+		
+		toro2002AtenRel.getParameter(PeriodParam.NAME).setValue(4.0);
+		double mean4s = toro2002AtenRel.getMean();
+		
+		assertTrue(mean3s  == mean2s / 0.385);
+		assertTrue(mean4s  == mean2s / 0.1483);
 	}
 
 	private void validateMedian(double[][] table) {

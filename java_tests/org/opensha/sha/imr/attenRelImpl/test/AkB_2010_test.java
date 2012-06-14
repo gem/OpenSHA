@@ -11,7 +11,13 @@ import org.opensha.commons.param.event.ParameterChangeWarningEvent;
 import org.opensha.commons.param.event.ParameterChangeWarningListener;
 import org.opensha.sha.imr.attenRelImpl.AkB_2010_AttenRel;
 import org.opensha.sha.imr.attenRelImpl.constants.AkB2010Constants;
+import org.opensha.sha.imr.param.EqkRuptureParams.MagParam;
+import org.opensha.sha.imr.param.EqkRuptureParams.RakeParam;
+import org.opensha.sha.imr.param.IntensityMeasureParams.PeriodParam;
+import org.opensha.sha.imr.param.IntensityMeasureParams.SA_Param;
 import org.opensha.sha.imr.param.OtherParams.StdDevTypeParam;
+import org.opensha.sha.imr.param.PropagationEffectParams.DistanceJBParameter;
+import org.opensha.sha.imr.param.SiteParams.Vs30_Param;
 
 /**
  * Class providing methods for testing {@link AkB_2010_AttenRel}. Tables
@@ -289,6 +295,26 @@ public class AkB_2010_test implements ParameterChangeWarningListener {
 		double vs30 = 400.0;
 		double rake = 0.0;
 		validateMedian(vs30, rake, medianStrikeSlipStiffSoilTable);
+	}
+	
+	/**
+	 * Check SA at T = 4 s
+	 */
+	@Test
+	public final void sa4s(){
+		akb2010AttenRel.setIntensityMeasure(SA_Param.NAME);
+		akb2010AttenRel.getParameter(MagParam.NAME).setValue(6.0);
+		akb2010AttenRel.getParameter(RakeParam.NAME).setValue(0.0);
+		akb2010AttenRel.getParameter(DistanceJBParameter.NAME).setValue(10.0);
+		akb2010AttenRel.getParameter(Vs30_Param.NAME).setValue(800.0);
+		
+		akb2010AttenRel.getParameter(PeriodParam.NAME).setValue(3.0);
+		double mean3s = akb2010AttenRel.getMean();
+		
+		akb2010AttenRel.getParameter(PeriodParam.NAME).setValue(4.0);
+		double mean4s = akb2010AttenRel.getMean();
+		
+		assertTrue(mean4s  == mean3s / 0.80);
 	}
 
 	private void validateMedian(double vs30, double rake, double[][] table) {
