@@ -107,7 +107,7 @@ public class Campbell_2003_SHARE_test implements ParameterChangeWarningListener 
 	}
 
 	@Test
-	public void checkSetPeriodIndex(){
+	public void checkSetPeriodIndexGetMean(){
 		double mag = 5.0;
 		double rRup = 10.0;
 		double rake = 0.0;
@@ -120,6 +120,24 @@ public class Campbell_2003_SHARE_test implements ParameterChangeWarningListener 
 		ca03AttenRel.setIntensityMeasure(SA_Param.NAME);
 		assertTrue(ca03AttenRel.getMean()==
 			ca03AttenRel.getMean(iper, mag, rRup, rake));
+	}
+	
+	@Test
+	public void checkSetPeriodIndexGetStd(){
+		double mag = 5.0;
+		double rRup = 10.0;
+		double rake = 0.0;
+		double period = 1.0;
+		String stdDevType = StdDevTypeParam.STD_DEV_TYPE_TOTAL;
+		int iper = ArrayUtils.indexOf(Campbell2003Constants.PERIOD, period);
+		ca03AttenRel.getParameter(MagParam.NAME).setValue(mag);
+		ca03AttenRel.getParameter(DistanceRupParameter.NAME).setValue(rRup);
+		ca03AttenRel.getParameter(RakeParam.NAME).setValue(rake);
+		ca03AttenRel.getParameter(PeriodParam.NAME).setValue(period);
+		ca03AttenRel.setIntensityMeasure(SA_Param.NAME);
+		ca03AttenRel.getParameter(StdDevTypeParam.NAME).setValue(stdDevType);
+		assertTrue(ca03AttenRel.getStdDev()==
+			ca03AttenRel.getStdDev(iper, mag, stdDevType));
 	}
 
 	private void validateMedian(double rake, double[][] table) {

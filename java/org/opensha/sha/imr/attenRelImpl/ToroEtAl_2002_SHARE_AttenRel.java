@@ -158,6 +158,7 @@ public class ToroEtAl_2002_SHARE_AttenRel extends ToroEtAl_2002_AttenRel {
 	}
 
 	public double getStdDev() {
+		setPeriodIndex();
 		return getStdDev(iper, mag, rJB, stdDevType);
 	}
 

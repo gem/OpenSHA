@@ -108,7 +108,7 @@ public class ToroEtAl_2002_SHARE_test implements ParameterChangeWarningListener 
 	}
 
 	@Test
-	public void checkSetPeriodIndex(){
+	public void checkSetPeriodIndexGetMean(){
 		double mag = 5.0;
 		double rJB = 10.0;
 		double rake = 0.0;
@@ -121,6 +121,24 @@ public class ToroEtAl_2002_SHARE_test implements ParameterChangeWarningListener 
 		toro2002SHARE.setIntensityMeasure(SA_Param.NAME);
 		assertTrue(toro2002SHARE.getMean()==
 			toro2002SHARE.getMean(iper, mag, rJB, rake));
+	}
+	
+	@Test
+	public void checkSetPeriodIndexGetStd(){
+		double mag = 5.0;
+		double rJB = 10.0;
+		double rake = 0.0;
+		double period = 1.0;
+		String stdDevType = StdDevTypeParam.STD_DEV_TYPE_TOTAL;
+		int iper = ArrayUtils.indexOf(ToroEtAl2002Constants.PERIOD,period);
+		toro2002SHARE.getParameter(MagParam.NAME).setValue(mag);
+		toro2002SHARE.getParameter(DistanceJBParameter.NAME).setValue(rJB);
+		toro2002SHARE.getParameter(RakeParam.NAME).setValue(rake);
+		toro2002SHARE.getParameter(PeriodParam.NAME).setValue(period);
+		toro2002SHARE.getParameter(StdDevTypeParam.NAME).setValue(stdDevType);
+		toro2002SHARE.setIntensityMeasure(SA_Param.NAME);
+		assertTrue(toro2002SHARE.getStdDev()==
+			toro2002SHARE.getStdDev(iper, mag, rJB, stdDevType));
 	}
 
 	private void validateMedian(double rake, double[][] table) {

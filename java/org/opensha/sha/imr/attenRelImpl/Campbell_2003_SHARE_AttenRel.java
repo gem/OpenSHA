@@ -149,6 +149,7 @@ public class Campbell_2003_SHARE_AttenRel extends Campbell_2003_AttenRel {
 	}
 
 	public double getStdDev(){
+		setPeriodIndex();
 	    return getStdDev(iper, mag, stdDevType);
 	}
 
