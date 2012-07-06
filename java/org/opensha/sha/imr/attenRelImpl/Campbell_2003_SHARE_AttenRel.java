@@ -101,6 +101,7 @@ public class Campbell_2003_SHARE_AttenRel extends Campbell_2003_AttenRel {
 		if (rRup > USER_MAX_DISTANCE) {
 			return VERY_SMALL_MEAN;
 		} else {
+			setPeriodIndex();
 			return getMean(iper, mag, rRup, rake);
 		}
 	}
@@ -148,6 +149,7 @@ public class Campbell_2003_SHARE_AttenRel extends Campbell_2003_AttenRel {
 	}
 
 	public double getStdDev(){
+		setPeriodIndex();
 	    return getStdDev(iper, mag, stdDevType);
 	}
 

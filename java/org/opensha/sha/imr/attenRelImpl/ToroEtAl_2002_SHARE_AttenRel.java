@@ -105,6 +105,7 @@ public class ToroEtAl_2002_SHARE_AttenRel extends ToroEtAl_2002_AttenRel {
 		if (rJB > USER_MAX_DISTANCE) {
 			return VERY_SMALL_MEAN;
 		} else {
+			setPeriodIndex();
 			return getMean(iper, mag, rJB, rake);
 		}
 	}
@@ -157,6 +158,7 @@ public class ToroEtAl_2002_SHARE_AttenRel extends ToroEtAl_2002_AttenRel {
 	}
 
 	public double getStdDev() {
+		setPeriodIndex();
 		return getStdDev(iper, mag, rJB, stdDevType);
 	}
 
