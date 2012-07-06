@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,8 +15,13 @@ import org.opensha.commons.param.event.ParameterChangeWarningListener;
 import org.opensha.sha.earthquake.EqkRupture;
 import org.opensha.sha.imr.attenRelImpl.Campbell_2003_SHARE_AttenRel;
 import org.opensha.sha.imr.attenRelImpl.constants.AdjustFactorsSHARE;
+import org.opensha.sha.imr.attenRelImpl.constants.Campbell2003Constants;
 import org.opensha.sha.imr.param.EqkRuptureParams.MagParam;
+import org.opensha.sha.imr.param.EqkRuptureParams.RakeParam;
+import org.opensha.sha.imr.param.IntensityMeasureParams.PeriodParam;
+import org.opensha.sha.imr.param.IntensityMeasureParams.SA_Param;
 import org.opensha.sha.imr.param.OtherParams.StdDevTypeParam;
+import org.opensha.sha.imr.param.PropagationEffectParams.DistanceRupParameter;
 
 /**
  * Class providing methods for testing {@link Campbell_2003_SHARE_AttenRel}.
@@ -98,6 +104,22 @@ public class Campbell_2003_SHARE_test implements ParameterChangeWarningListener 
 	public void checkMedianEventOnHardRock() {
 		double rake = -90.0;
 		validateMedian(rake, medianHardRockTable);
+	}
+
+	@Test
+	public void checkSetPeriodIndex(){
+		double mag = 5.0;
+		double rRup = 10.0;
+		double rake = 0.0;
+		double period = 1.0;
+		int iper = ArrayUtils.indexOf(Campbell2003Constants.PERIOD, period);
+		ca03AttenRel.getParameter(MagParam.NAME).setValue(mag);
+		ca03AttenRel.getParameter(DistanceRupParameter.NAME).setValue(rRup);
+		ca03AttenRel.getParameter(RakeParam.NAME).setValue(rake);
+		ca03AttenRel.getParameter(PeriodParam.NAME).setValue(period);
+		ca03AttenRel.setIntensityMeasure(SA_Param.NAME);
+		assertTrue(ca03AttenRel.getMean()==
+			ca03AttenRel.getMean(iper, mag, rRup, rake));
 	}
 
 	private void validateMedian(double rake, double[][] table) {
