@@ -10,7 +10,7 @@ public class AdjustFactorsSHARE {
 	 */
 	public static final double[] AFrock_TORO2002 = { 0.735106, 0.419632,
 			0.477379, 0.888509, 1.197291, 1.308267, 1.30118, 1.265762,
-			1.215779};
+			1.215779, 1.215779, 1.215779};
 
 	public static final double[] AFrock_CAMPBELL2003 = { 0.735106, 0.474275,
 			0.423049, 0.550323, 0.730061, 0.888509, 1.094622, 1.197291,
@@ -25,7 +25,7 @@ public class AdjustFactorsSHARE {
 	 */
 	public static final double[] sig_AFrock_TORO2002 = { 0.338916, 0.289785,
 			0.320650, 0.352442, 0.281552, 0.198424, 0.1910745, 0.154327,
-			0.155520};
+			0.155520, 0.155520, 0.155520};
 
 	public static final double[] sig_AFrock_CAMBPELL2003 = { 0.338916,
 			0.283461, 0.289785, 0.345375, 0.365490, 0.352442, 0.315477,
@@ -35,7 +35,11 @@ public class AdjustFactorsSHARE {
 	 * Style-of-faulting adjustment coefficients, obtained from Table 7 (Drouet
 	 * et al 2010) and using a cubic spline interpolation
 	 */
-	public static final double[] Frss = { 1.220000, 1.080745, 0.986646,
+	public static final double[] Frss_TORO2002 = {1.220000, 0.935198, 0.907936,
+			1.080000, 1.190000, 1.230000, 1.230000, 1.177500, 1.140000, 1.140000,
+			1.140000};
+	
+	public static final double[] Frss_CAMPBELL2003 = { 1.220000, 1.080745, 0.986646,
 			0.931209, 0.910332, 0.985998, 1.080000, 1.150000, 1.190000,
 			1.230000, 1.191702, 1.177500, 1.194705, 1.140000, 1.140000,
 			1.140000 };
@@ -66,7 +70,7 @@ public class AdjustFactorsSHARE {
 	public static void main(String[] args) {
 		System.out.println(AFrock_TORO2002.length);
 		System.out.println(sig_AFrock_TORO2002.length);
-		System.out.println(Frss.length);
+		System.out.println(Frss_CAMPBELL2003.length);
 	}
 
 }

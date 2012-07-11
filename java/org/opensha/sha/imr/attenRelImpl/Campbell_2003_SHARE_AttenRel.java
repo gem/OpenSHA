@@ -126,7 +126,7 @@ public class Campbell_2003_SHARE_AttenRel extends Campbell_2003_AttenRel {
 			f[0] = 1.0;
 			f[1] = 0.0;
 			f[2] = f[0]
-					* Math.pow(AdjustFactorsSHARE.Frss[iper],
+					* Math.pow(AdjustFactorsSHARE.Frss_CAMPBELL2003[iper],
 							(1 - AdjustFactorsSHARE.pR))
 					* Math.pow(AdjustFactorsSHARE.Fnss, -AdjustFactorsSHARE.pN);
 		} else if (rake > AdjustFactorsSHARE.FLT_TYPE_REVERSE_RAKE_LOWER
@@ -134,14 +134,14 @@ public class Campbell_2003_SHARE_AttenRel extends Campbell_2003_AttenRel {
 			f[0] = 0.0;
 			f[1] = 1.0;
 			f[2] = f[1]
-					* Math.pow(AdjustFactorsSHARE.Frss[iper],
+					* Math.pow(AdjustFactorsSHARE.Frss_CAMPBELL2003[iper],
 							-AdjustFactorsSHARE.pR)
 					* Math.pow(AdjustFactorsSHARE.Fnss,
 							(1 - AdjustFactorsSHARE.pN));
 		} else {
 			f[0] = 0.0;
 			f[1] = 0.0;
-			f[2] = Math.pow(AdjustFactorsSHARE.Frss[iper],
+			f[2] = Math.pow(AdjustFactorsSHARE.Frss_CAMPBELL2003[iper],
 					-AdjustFactorsSHARE.pR)
 					* Math.pow(AdjustFactorsSHARE.Fnss, -AdjustFactorsSHARE.pN);
 		}

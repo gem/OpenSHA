@@ -140,6 +140,48 @@ public class ToroEtAl_2002_SHARE_test implements ParameterChangeWarningListener 
 		assertTrue(toro2002SHARE.getStdDev()==
 			toro2002SHARE.getStdDev(iper, mag, rJB, stdDevType));
 	}
+	
+	/**
+	 * Check SA at T = 3 s
+	 */
+	@Test
+	public final void sa3s(){
+		double mag = 5.0;
+		double rJB = 10.0;
+		double rake = 0.0;
+		double period = 3.0;
+		String stdDevType = StdDevTypeParam.STD_DEV_TYPE_TOTAL;
+		int iper = ArrayUtils.indexOf(ToroEtAl2002Constants.PERIOD,period);
+		toro2002SHARE.getParameter(MagParam.NAME).setValue(mag);
+		toro2002SHARE.getParameter(DistanceJBParameter.NAME).setValue(rJB);
+		toro2002SHARE.getParameter(RakeParam.NAME).setValue(rake);
+		toro2002SHARE.getParameter(PeriodParam.NAME).setValue(period);
+		toro2002SHARE.getParameter(StdDevTypeParam.NAME).setValue(stdDevType);
+		toro2002SHARE.setIntensityMeasure(SA_Param.NAME);
+		assertTrue(toro2002SHARE.getStdDev()==
+			toro2002SHARE.getStdDev(iper, mag, rJB, stdDevType));
+	}
+	
+	/**
+	 * Check SA at T = 4 s
+	 */
+	@Test
+	public final void sa4s(){
+		double mag = 5.0;
+		double rJB = 10.0;
+		double rake = 0.0;
+		double period = 4.0;
+		String stdDevType = StdDevTypeParam.STD_DEV_TYPE_TOTAL;
+		int iper = ArrayUtils.indexOf(ToroEtAl2002Constants.PERIOD,period);
+		toro2002SHARE.getParameter(MagParam.NAME).setValue(mag);
+		toro2002SHARE.getParameter(DistanceJBParameter.NAME).setValue(rJB);
+		toro2002SHARE.getParameter(RakeParam.NAME).setValue(rake);
+		toro2002SHARE.getParameter(PeriodParam.NAME).setValue(period);
+		toro2002SHARE.getParameter(StdDevTypeParam.NAME).setValue(stdDevType);
+		toro2002SHARE.setIntensityMeasure(SA_Param.NAME);
+		assertTrue(toro2002SHARE.getStdDev()==
+			toro2002SHARE.getStdDev(iper, mag, rJB, stdDevType));
+	}
 
 	private void validateMedian(double rake, double[][] table) {
 		String[] columnDescr = TABLE_HEADER_MEDIAN[0].trim().split("\\s+");
